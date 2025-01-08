@@ -1,0 +1,26 @@
+---
+http-url: "http://localhost:8980/opennms"
+broker-url: "failover:tcp://localhost:61616"
+id: "lab-01-minion-01"
+location: "clab-lab-01"
+
+karaf:
+  shell:
+    ssh:
+      host: "0.0.0.0"
+
+telemetry:
+  flows:
+    single-port-listener:
+      enabled: true
+      parameters:
+        port: 4729
+
+netmgt:
+  syslog:
+    syslog.listen.interface: "0.0.0.0"
+    syslog.listen.port: 1514
+
+  traps:
+    trapd.listen.interface: "0.0.0.0"
+    trapd.listen.port: 1162
