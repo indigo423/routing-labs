@@ -1,0 +1,80 @@
+<model-import xmlns="http://xmlns.opennms.org/xsd/config/model-import" date-stamp="2024-01-22T14:16:43.261+01:00" foreign-source="clab-lab-01" last-import="2024-01-22T14:16:47.597+01:00">
+   <node location="clab-lab-01" foreign-id="router1" node-label="router1">
+      <interface ip-addr="203.0.113.32" status="1" snmp-primary="P">
+         <monitored-service service-name="ICMP"/>
+         <monitored-service service-name="SNMP"/>
+      </interface>
+   </node>
+   <node location="clab-lab-01" foreign-id="router2" node-label="router2">
+      <interface ip-addr="203.0.113.33" status="1" snmp-primary="P">
+         <monitored-service service-name="ICMP"/>
+         <monitored-service service-name="SNMP"/>
+      </interface>
+   </node>
+   <node location="clab-lab-01" foreign-id="router3" node-label="router3">
+      <interface ip-addr="203.0.113.34" status="1" snmp-primary="P">
+         <monitored-service service-name="ICMP"/>
+         <monitored-service service-name="SNMP"/>
+      </interface>
+   </node>
+   <node location="clab-lab-01" foreign-id="router4" node-label="router4">
+      <interface ip-addr="203.0.113.35" status="1" snmp-primary="P">
+         <monitored-service service-name="ICMP"/>
+         <monitored-service service-name="SNMP"/>
+      </interface>
+   </node>
+   <node location="clab-lab-01" foreign-id="router5" node-label="router5">
+      <interface ip-addr="203.0.113.36" status="1" snmp-primary="P">
+         <monitored-service service-name="ICMP"/>
+         <monitored-service service-name="SNMP"/>
+      </interface>
+   </node>
+   <node location="clab-lab-01" foreign-id="router6" node-label="router6">
+      <interface ip-addr="203.0.113.37" status="1" snmp-primary="P">
+         <monitored-service service-name="ICMP"/>
+         <monitored-service service-name="SNMP"/>
+      </interface>
+   </node>
+   <node location="clab-lab-01" foreign-id="router7" node-label="router7">
+      <interface ip-addr="203.0.113.38" status="1" snmp-primary="P">
+         <monitored-service service-name="ICMP"/>
+         <monitored-service service-name="SNMP"/>
+      </interface>
+   </node>
+   <node location="clab-lab-01" foreign-id="pc1" node-label="pc1">
+      <interface ip-addr="203.0.113.128" status="1" snmp-primary="P">
+         <monitored-service service-name="ICMP"/>
+      </interface>
+   </node>
+   <node location="clab-lab-01" foreign-id="pc2" node-label="pc2">
+      <interface ip-addr="203.0.113.129" status="1" snmp-primary="P">
+         <monitored-service service-name="ICMP"/>
+      </interface>
+   </node>
+   <node location="clab-lab-01" foreign-id="pc3" node-label="pc3">
+      <interface ip-addr="203.0.113.130" status="1" snmp-primary="P">
+         <monitored-service service-name="ICMP"/>
+      </interface>
+   </node>
+   <node location="clab-lab-01" foreign-id="pc4" node-label="pc4">
+      <interface ip-addr="203.0.113.131" status="1" snmp-primary="P">
+         <monitored-service service-name="ICMP"/>
+      </interface>
+   </node>
+   <node location="clab-lab-01" foreign-id="pc5" node-label="pc5">
+      <interface ip-addr="203.0.113.132" status="1" snmp-primary="P">
+         <monitored-service service-name="ICMP"/>
+      </interface>
+   </node>
+   <node location="clab-lab-01" foreign-id="pc6" node-label="pc6">
+      <interface ip-addr="203.0.113.133" status="1" snmp-primary="P">
+         <monitored-service service-name="ICMP"/>
+      </interface>
+   </node>
+   <node location="clab-lab-01" foreign-id="pc7" node-label="pc7">
+      <interface ip-addr="203.0.113.134" status="1" snmp-primary="P">
+         <monitored-service service-name="ICMP"/>
+      </interface>
+   </node>
+</model-import>
+
