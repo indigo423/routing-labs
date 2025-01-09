@@ -1,0 +1,34 @@
+---
+services:
+
+  onms-hzn-core:
+    image: opennms/horizon:33.1.2
+    deploy:
+      resources:
+        limits:
+          cpus: 2.0
+          memory: 8g
+    depends_on:
+      database:
+        condition: service_healthy
+    environment:
+      TZ: UTC
+      JAEGER_ENDPOINT: http://jaeger:14268/api/traces
+    command: ["-s"]
+    volumes:
+      - data_onms_hzn_cfg:/opt/opennms/etc
+      - data_onms_hzn:/opennms-data
+    ports:
+      - "8101/tcp"
+      - "8980/tcp"
+      - "1162/udp"
+      - "10514/udp"
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "-I", "http://localhost:8980/opennms/login.jsp" ]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+
+volumes:
+  data_onms_hzn_cfg: {}
+  data_onms_hzn: {}

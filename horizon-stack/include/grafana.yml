@@ -1,0 +1,24 @@
+---
+services:
+
+  grafana:
+    image: grafana/grafana:latest
+    deploy:
+      resources:
+        limits:
+          cpus: 0.5
+          memory: 512m
+    environment:
+      TZ: UTC
+      GF_SECURITY_ADMIN_USER: admin
+      GF_SECURITY_ADMIN_PASSWORD: admin
+      GF_INSTALL_PLUGINS: opennms-opennms-app,grafana-piechart-panel,neocat-cal-heatmap-panel,briangann-datatable-panel
+      GF_FEATURE_TOGGLES_ENABLE: nestedFolders
+    volumes:
+      - data_grafana:/var/lib/grafana
+      - ./grafana/provisioning:/etc/grafana/provisioning/
+    ports:
+      - "3000/tcp"
+
+volumes:
+  data_grafana: {}
