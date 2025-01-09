@@ -1,0 +1,19 @@
+---
+services:
+
+  mimir:
+    image: grafana/mimir:latest
+    deploy:
+      resources:
+        limits:
+          cpus: 1.0
+          memory: 1g
+    command: ["-config.file=/etc/mimir-config.yaml"]
+    volumes:
+      - ./mimir/mimir-config.yaml:/etc/mimir-config.yaml
+      - data-mimir:/data/mimir
+    ports:
+      - "9009/tcp"
+
+volumes:
+  data-mimir: {}

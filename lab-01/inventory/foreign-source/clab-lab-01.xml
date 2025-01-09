@@ -1,0 +1,5 @@
+<foreign-source xmlns="http://xmlns.opennms.org/xsd/config/foreign-source" name="clab-lab-01" date-stamp="2024-01-22T14:31:21.121+01:00">
+   <scan-interval>1d</scan-interval>
+   <detectors/>
+   <policies/>
+</foreign-source>
