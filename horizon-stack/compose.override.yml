@@ -1,41 +1,17 @@
 ---
-networks:
-  clab-lab01:
-    name: fixedips
-    external: true
-  onms-network: {}
-
 services:
 
-  database:
-    networks:
-      - onms-network
-
-  pgadmin:
-    networks:
-      - onms-network
-
-  mimir:
-    networks:
-      - onms-network
-    ports:
-      - "9090:9090/tcp"
-
-  elasticsearch:
-    networks:
-      - onms-network
-
-  kibana:
-    networks:
-      - onms-network
-
   kafka-broker:
-    networks:
-      - onms-network
+    network_mode: host
+    environment:
+      KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9092,PLAINTEXT_HOST://localhost:29092,CONTROLLER://:9093
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://192.168.10.45:9092,PLAINTEXT_HOST://localhost:29092
 
   kafka-ui:
-    networks:
-      - onms-network
+    environment:
+      KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: 192.168.10.45:9092
+    ports:
+      - "8080:8080/tcp"
 
   onms-hzn-core:
     depends_on:
@@ -52,38 +28,11 @@ services:
     volumes:
       - ./container-fs/core-etc-overlay:/opt/opennms-etc-overlay
       - ./container-fs/core-overlay:/opt/opennms-overlay
-    networks:
-      - onms-network
     ports:
       - "8101:8101/tcp"
       - "8980:8980/tcp"
 
-  onms-hzn-minion:
-    depends_on:
-      kafka-broker:
-        condition: service_started
-      jaeger:
-        condition: service_started
-    volumes:
-      - ./container-fs/minion-etc-overlay:/opt/minion-etc-overlay
-    networks:
-      onms-network:
-      clab-lab01:
-        ipv4_address: 203.0.113.64
-        ipv6_address: 2001:db8::64
-    ports:
-      - "8201:8201/tcp"
-      - "514:1514/udp"
-      - "162:1162/udp"
-      - "9999:9999/udp"
-      - "11019:11019/tcp"
-
   grafana:
-    networks:
-      - onms-network
     ports:
       - "3000:3000/tcp"
 
-  jaeger:
-    networks:
-      - onms-network

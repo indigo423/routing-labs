@@ -6,6 +6,5 @@ include:
   - ./include/elasticsearch.yml
   - ./include/kafka-broker.yml
   - ./include/onms-hzn-core.yml
-  - ./include/onms-hzn-minion.yml
   - ./include/grafana.yml
   - ./include/jaeger.yml

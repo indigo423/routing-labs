@@ -105,6 +105,13 @@ topology:
       mgmt-ipv4: 203.0.113.134
       mgmt-ipv6: 2001:db8::134
       image: praqma/network-multitool:latest
+    minion:
+      kind: linux
+      mgmt-ipv4: 203.0.113.64
+      mgmt-ipv6: 2001:db8::64
+      image: opennms/minion:33.1.2
+      binds:
+        - ./minion/container-fs/minion-etc-overlay:/opt/minion-etc-overlay
   links:
     - endpoints: ["router1:eth1", "router2:eth1"]
     - endpoints: ["router1:eth2", "router3:eth1"]
