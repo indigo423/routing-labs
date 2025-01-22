@@ -74,37 +74,58 @@ topology:
       kind: linux
       mgmt-ipv4: 203.0.113.128
       mgmt-ipv6: 2001:db8::128
-      image: praqma/network-multitool:latest
+      image: ghcr.io/srl-labs/network-multitool
+      exec:
+        - ip address add 198.51.100.9/28 dev eth1
+        - ip route add 198.51.100.0/24 via 198.51.100.1 dev eth1
     pc2:
       kind: linux
       mgmt-ipv4: 203.0.113.129
       mgmt-ipv6: 2001:db8::129
-      image: praqma/network-multitool:latest
+      image: ghcr.io/srl-labs/network-multitool
+      exec:
+        - ip address add 198.51.100.25/28 dev eth1
+        - ip route add 198.51.100.0/24 via 198.51.100.17 dev eth1
     pc3:
       kind: linux
       mgmt-ipv4: 203.0.113.130
       mgmt-ipv6: 2001:db8::130
-      image: praqma/network-multitool:latest
+      image: ghcr.io/srl-labs/network-multitool
+      exec:
+        - ip address add 198.51.100.41/28 dev eth1
+        - ip route add 198.51.100.0/24 via 198.51.100.33 dev eth1
     pc4:
       kind: linux
       mgmt-ipv4: 203.0.113.131
       mgmt-ipv6: 2001:db8::131
-      image: praqma/network-multitool:latest
+      image: ghcr.io/srl-labs/network-multitool
+      exec:
+        - ip address add 198.51.100.57/28 dev eth1
+        - ip route add 198.51.100.0/24 via 198.51.100.49 dev eth1
     pc5:
       kind: linux
       mgmt-ipv4: 203.0.113.132
       mgmt-ipv6: 2001:db8::132
-      image: praqma/network-multitool:latest
+      image: ghcr.io/srl-labs/network-multitool
+      exec:
+        - ip address add 198.51.100.73/28 dev eth1
+        - ip route add 198.51.100.0/24 via 198.51.100.65 dev eth1
     pc6:
       kind: linux
       mgmt-ipv4: 203.0.113.133
       mgmt-ipv6: 2001:db8::133
-      image: praqma/network-multitool:latest
+      image: ghcr.io/srl-labs/network-multitool
+      exec:
+        - ip address add 198.51.100.89/28 dev eth1
+        - ip route add 198.51.100.0/24 via 198.51.100.81 dev eth1
     pc7:
       kind: linux
       mgmt-ipv4: 203.0.113.134
       mgmt-ipv6: 2001:db8::134
-      image: praqma/network-multitool:latest
+      image: ghcr.io/srl-labs/network-multitool
+      exec:
+        - ip address add 198.51.100.105/28 dev eth1
+        - ip route add 198.51.100.0/24 via 198.51.100.97 dev eth1
     minion:
       kind: linux
       mgmt-ipv4: 203.0.113.64
