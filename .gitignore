@@ -1,2 +1,4 @@
 .idea/
+**/clab-lab-*/
 **/*.bak
+**/*.bkp

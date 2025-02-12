@@ -36,6 +36,6 @@ checkError "${?}"
 echo -n " - Test connectivity to PC7 (198.51.100.105/28): "
 docker exec -it routing-lab-01-pc1 ping -W 0.5 -c 1 198.51.100.105 2>&1 > /dev/null
 checkError "${?}"
-echo -n " - Test connectivity to PC8 (198.51.100.114/28): "
-docker exec -it routing-lab-01-pc1 ping -W 0.5 -c 1 198.51.100.114 2>&1 > /dev/null
+echo -n " - Test connectivity to PC8 (198.51.100.121/28): "
+docker exec -it routing-lab-01-pc1 ping -W 0.5 -c 1 198.51.100.121 2>&1 > /dev/null
 checkError "${?}"

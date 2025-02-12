@@ -2,7 +2,7 @@ name: lab-01
 prefix: "routing"
 
 mgmt:
-  network: fixedips
+  network: mgmt-lab-01
   ipv4-subnet: 203.0.113.0/24
   ipv6-subnet: 2001:db8::/64
 
@@ -162,7 +162,7 @@ topology:
       image: ghcr.io/srl-labs/network-multitool
       exec:
         - echo "Configuring the pc8..."
-        - ip addr add 198.51.100.114/28 dev eth1
+        - ip addr add 198.51.100.121/28 dev eth1
         - ip route add 198.51.100.0/24 via 198.51.100.113 dev eth1
   links:
     - endpoints: ["router1:eth1", "router2:eth1"]

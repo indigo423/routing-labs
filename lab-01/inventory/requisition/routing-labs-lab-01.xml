@@ -41,6 +41,12 @@
          <monitored-service service-name="SNMP"/>
       </interface>
    </node>
+   <node location="routing-labs-lab-01" foreign-id="router8" node-label="router8">
+      <interface ip-addr="203.0.113.39" status="1" snmp-primary="P">
+         <monitored-service service-name="ICMP"/>
+         <monitored-service service-name="SNMP"/>
+      </interface>
+   </node>
    <node location="routing-labs-lab-01" foreign-id="pc1" node-label="pc1">
       <interface ip-addr="203.0.113.128" status="1" snmp-primary="P">
          <monitored-service service-name="ICMP"/>
@@ -73,6 +79,11 @@
    </node>
    <node location="routing-labs-lab-01" foreign-id="pc7" node-label="pc7">
       <interface ip-addr="203.0.113.134" status="1" snmp-primary="P">
+         <monitored-service service-name="ICMP"/>
+      </interface>
+   </node>
+   <node location="routing-labs-lab-01" foreign-id="pc8" node-label="pc8">
+      <interface ip-addr="203.0.113.135" status="1" snmp-primary="P">
          <monitored-service service-name="ICMP"/>
       </interface>
    </node>
