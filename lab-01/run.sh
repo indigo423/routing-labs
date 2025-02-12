@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 sudo clab deploy --topo lab-01.clab.yml
-./pc-interfaces.sh
+sleep 1
 ./disable-lldp-mgmt.sh

@@ -1,6 +1,13 @@
-# Lab 01
+ # Lab 01 - Routing Protocols
 
-An environment to play, test and evaluate network monitoring solutions.
+An environment to play, test and evaluate the OpenNMS network monitoring platform with common routing protocols for OSPF, IS-IS, BGP.
+To get monitoring data the SNMP and BMP is available.
+Getting access to the network devices management interfaces, an OpenNMS Minion is deployed within the topology.
+
+> [!NOTE]
+> If you want to get access to the Minion you can use your existing OpenNMS Horizon/Meridian stack.
+> You need to configure gRPC as communication protocol and configure the endpoint in [org.opennms.core.ipc.grpc.client.cfg](onms-minion/etc-overlay/org.opennms.core.ipc.grpc.client.cfg) accordingly.
+
 The environment uses the [Containerlab](https://containerlab.dev/) which allows to build and model complex routing networks using container runtimes.
 
 > [!NOTE]
@@ -21,22 +28,25 @@ The networks used for this lab are described in [RFC5737](https://datatracker.ie
 * 2001:db8::/64
 
 ## Adressing Table
-| Device  | Interface                    | IPv4 Address                                            | IPv4 Subnet Mask                                                         | IPv4 CIDR                 | Default Gateway | Management IP |
-|---------|------------------------------|---------------------------------------------------------|--------------------------------------------------------------------------|---------------------------|-----------------|---------------|
-| router1 | eth1<br>eth2<br>eth3         | 192.0.2.0<br>192.0.2.2<br>198.51.100.1                  | 255.255.255.254<br>255.255.255.254<br>255.255.255.240                    | /31<br>/31<br>/28         | -               | 203.0.113.32<br>2001:db8::32     |
-| router2 | eth1<br>eth2<br>eth3         | 192.0.2.1<br>192.0.2.4<br>198.51.100.17                 | 255.255.255.254<br>255.255.255.254<br>255.255.255.240                    | /31<br>/31<br>/28         | -               | 203.0.113.33<br>2001:db8::33     |
-| router3 | eth1<br>eth2<br>eth3<br>eth4 | 192.0.2.3<br>192.0.2.5<br>198.51.100.33<br>192.0.2.6    | 255.255.255.254<br>255.255.255.254<br>255.255.255.240<br>255.255.255.254 | /31<br>/31<br>/28 <br>/31 | -               | 203.0.113.34<br>2001:db8::34     |
-| router4 | eth1<br>eth2<br>eth3<br>eth4 | 192.0.2.8<br>192.0.2.10<br>198.51.100.49<br>192.0.2.7   | 255.255.255.254<br>255.255.255.254<br>255.255.255.240<br>255.255.255.254 | /31<br>/31<br>/28 <br>/31 | -               | 203.0.113.35<br>2001:db8::35     |
-| router5 | eth1<br>eth2<br>eth3         | 192.0.2.9<br>192.0.2.12<br>198.51.100.65                | 255.255.255.254<br>255.255.255.254<br>255.255.255.240                    | /31<br>/31<br>/28         | -               | 203.0.113.36<br>2001:db8::36     |
-| router6 | eth1<br>eth2<br>eth3<br>eth4 | 192.0.2.11<br>192.0.2.13<br>198.51.100.81<br>192.0.2.14 | 255.255.255.254<br>255.255.255.254<br>255.255.255.240<br>255.255.255.254 | /31<br>/31<br>/28 <br>/31 | -               | 203.0.113.37<br>2001:db8::37     |
-| router7 | eth1<br>eth2                 | 192.0.2.15<br>198.51.100.97                             | 255.255.255.254<br>255.255.255.240                                       | /31<br>/28                | -               | 203.0.113.38<br>2001:db8::38     |
-| pc1     | eth1                         | 198.51.100.9                                            | 255.255.255.240                                                          | /28                       | 203.0.113.1 (eth0) | 203.0.113.128<br>2001:db8::128    |
-| pc2     | eth1                         | 198.51.100.25                                           | 255.255.255.240                                                          | /28                       | 203.0.113.1 (eth0) | 203.0.113.129<br>2001:db8::129    |
-| pc3     | eth1                         | 198.51.100.41                                           | 255.255.255.240                                                          | /28                       | 203.0.113.1 (eth0) | 203.0.113.130<br>2001:db8::130    |
-| pc4     | eth1                         | 198.51.100.57                                           | 255.255.255.240                                                          | /28                       | 203.0.113.1 (eth0) | 203.0.113.131<br>2001:db8::131    |
-| pc5     | eth1                         | 198.51.100.73                                           | 255.255.255.240                                                          | /28                       | 203.0.113.1 (eth0) | 203.0.113.132<br>2001:db8::132    |
-| pc6     | eth1                         | 198.51.100.89                                           | 255.255.255.240                                                          | /28                       | 203.0.113.1 (eth0) | 203.0.113.133<br>2001:db8::133    |
-| pc7     | eth1                         | 198.51.100.105                                          | 255.255.255.240                                                          | /28                       | 203.0.113.1 (eth0) | 203.0.113.134<br>2001:db8::134    |
+| Device  | Interface                    | IPv4 Address                                            | IPv4 Subnet Mask                                                         | IPv4 CIDR                 | Static Router         | Management IP                  |
+|---------|------------------------------|---------------------------------------------------------|--------------------------------------------------------------------------|---------------------------|-----------------------|--------------------------------|
+| minion  |                              |                                                         |                                                                          |                           | -                     | 203.0.113.64<br>2001:db8::64   |
+| router1 | eth1<br>eth2<br>eth3         | 192.0.2.0<br>192.0.2.2<br>198.51.100.1                  | 255.255.255.254<br>255.255.255.254<br>255.255.255.240                    | /31<br>/31<br>/28         | -                     | 203.0.113.32<br>2001:db8::32   |
+| router2 | eth1<br>eth2<br>eth3         | 192.0.2.1<br>192.0.2.4<br>198.51.100.17                 | 255.255.255.254<br>255.255.255.254<br>255.255.255.240                    | /31<br>/31<br>/28         | -                     | 203.0.113.33<br>2001:db8::33   |
+| router3 | eth1<br>eth2<br>eth3<br>eth4 | 192.0.2.3<br>192.0.2.5<br>198.51.100.33<br>192.0.2.6    | 255.255.255.254<br>255.255.255.254<br>255.255.255.240<br>255.255.255.254 | /31<br>/31<br>/28 <br>/31 | -                     | 203.0.113.34<br>2001:db8::34   |
+| router4 | eth1<br>eth2<br>eth3<br>eth4 | 192.0.2.8<br>192.0.2.10<br>198.51.100.49<br>192.0.2.7   | 255.255.255.254<br>255.255.255.254<br>255.255.255.240<br>255.255.255.254 | /31<br>/31<br>/28 <br>/31 | -                     | 203.0.113.35<br>2001:db8::35   |
+| router5 | eth1<br>eth2<br>eth3         | 192.0.2.9<br>192.0.2.12<br>198.51.100.65                | 255.255.255.254<br>255.255.255.254<br>255.255.255.240                    | /31<br>/31<br>/28         | -                     | 203.0.113.36<br>2001:db8::36   |
+| router6 | eth1<br>eth2<br>eth3<br>eth4 | 192.0.2.11<br>192.0.2.13<br>198.51.100.81<br>192.0.2.14 | 255.255.255.254<br>255.255.255.254<br>255.255.255.240<br>255.255.255.254 | /31<br>/31<br>/28 <br>/31 | -                     | 203.0.113.37<br>2001:db8::37   |
+| router7 | eth1<br>eth2<br>eth3         | 192.0.2.15<br>198.51.100.97<br>192.10.2.17              | 255.255.255.254<br>255.255.255.240<br>255.255.255.254                    | /31<br>/28<br>/31         | -                     | 203.0.113.38<br>2001:db8::38   |
+| router8 | eth1<br>eth2                 | 192.0.2.16<br>198.51.100.113                            | 255.255.255.254<br>255.255.255.240                                       | /31<br>/28                | -                     | 203.0.113.39<br>2001:db8::39   |
+| pc1     | eth1                         | 198.51.100.9                                            | 255.255.255.240                                                          | /28                       | 198.51.100.1 (eth1)   | 203.0.113.128<br>2001:db8::128 |
+| pc2     | eth1                         | 198.51.100.25                                           | 255.255.255.240                                                          | /28                       | 198.51.100.17 (eth1)  | 203.0.113.129<br>2001:db8::129 |
+| pc3     | eth1                         | 198.51.100.41                                           | 255.255.255.240                                                          | /28                       | 198.51.100.33 (eth1)  | 203.0.113.130<br>2001:db8::130 |
+| pc4     | eth1                         | 198.51.100.57                                           | 255.255.255.240                                                          | /28                       | 198.51.100.49(eth1)   | 203.0.113.131<br>2001:db8::131 |
+| pc5     | eth1                         | 198.51.100.73                                           | 255.255.255.240                                                          | /28                       | 198.51.100.65 (eth1)  | 203.0.113.132<br>2001:db8::132 |
+| pc6     | eth1                         | 198.51.100.89                                           | 255.255.255.240                                                          | /28                       | 198.51.100.81 (eth1)  | 203.0.113.133<br>2001:db8::133 |
+| pc7     | eth1                         | 198.51.100.105                                          | 255.255.255.240                                                          | /28                       | 198.51.100.97(eth1)   | 203.0.113.134<br>2001:db8::134 |
+| pc8     | eth1                         | 198.51.100.114                                          | 255.255.255.240                                                          | /28                       | 198.51.100.113 (eth1) | 203.0.113.135<br>2001:db8::135 |
 
 ## Requirements
 
@@ -51,17 +61,20 @@ The networks used for this lab are described in [RFC5737](https://datatracker.ie
 ./run.sh
 ```
 
+### 🏗️ Test routing function from PC1 to all other PC's in the topology
+```
+./test.sh
+```
+> [!NOTE]
+> It takes ~60 seconds until all routing protocols converged.
+
 ### 🗺️ Start a web server and give the URL with a given IP instead of 0.0.0.0
 ```
-clab graph -s <ip>:50080
+clab graph
 ```
 
 ### 🧨 Destroy the whole topology
 ```
 clab destroy
 ```
-### 📈 Web user interface
 
-* Grafana: http://203.0.113.63:3000
-* Kibana: http://203.0.113.64:5601
-* Elasticsearch: http://203.0.113.61:9200

@@ -1,4 +1,5 @@
 name: lab-01
+prefix: "routing"
 
 mgmt:
   network: fixedips
@@ -7,6 +8,18 @@ mgmt:
 
 topology:
   nodes:
+    minion:
+      kind: linux
+      mgmt-ipv4: 203.0.113.64
+      mgmt-ipv6: 2001:db8::64
+      image: opennms/minion:33.1.2
+      binds:
+        - ./onms-minion/etc-overlay:/opt/minion-etc-overlay
+      ports:
+        - 1162:1162/udp
+        - 1514:1514/udp
+        - 8201:8201/tcp
+        - 11019:11019/tcp
     router1:
       kind: linux
       mgmt-ipv4: 203.0.113.32
@@ -70,41 +83,87 @@ topology:
         - router7/daemons:/etc/frr/daemons
         - router7/frr.conf:/etc/frr/frr.conf
         - router7/pmacctd.conf:/etc/pmacct/pmacctd.conf
+    router8:
+      kind: linux
+      mgmt-ipv4: 203.0.113.39
+      mgmt-ipv6: 2001:db8::39
+      image: quay.io/labmonkeys/frrouting:10.2.1.b3521
+      binds:
+        - router8/daemons:/etc/frr/daemons
+        - router8/frr.conf:/etc/frr/frr.conf
+        - router8/pmacctd.conf:/etc/pmacct/pmacctd.conf
     pc1:
       kind: linux
       mgmt-ipv4: 203.0.113.128
       mgmt-ipv6: 2001:db8::128
-      image: praqma/network-multitool:latest
+      image: ghcr.io/srl-labs/network-multitool
+      exec:
+        - echo "Configuring the pc1..."
+        - ip addr add 198.51.100.9/28 dev eth1
+        - ip route add 198.51.100.0/24 via 198.51.100.1 dev eth1
     pc2:
       kind: linux
       mgmt-ipv4: 203.0.113.129
       mgmt-ipv6: 2001:db8::129
-      image: praqma/network-multitool:latest
+      image: ghcr.io/srl-labs/network-multitool
+      exec:
+        - echo "Configuring the pc2..."
+        - ip addr add 198.51.100.25/28 dev eth1
+        - ip route add 198.51.100.0/24 via 198.51.100.17 dev eth1
     pc3:
       kind: linux
       mgmt-ipv4: 203.0.113.130
       mgmt-ipv6: 2001:db8::130
-      image: praqma/network-multitool:latest
+      image: ghcr.io/srl-labs/network-multitool
+      exec:
+        - echo "Configuring the pc3..."
+        - ip addr add 198.51.100.41/28 dev eth1
+        - ip route add 198.51.100.0/24 via 198.51.100.33 dev eth1
     pc4:
       kind: linux
       mgmt-ipv4: 203.0.113.131
       mgmt-ipv6: 2001:db8::131
-      image: praqma/network-multitool:latest
+      image: ghcr.io/srl-labs/network-multitool
+      exec:
+        - echo "Configuring the pc4..."
+        - ip addr add 198.51.100.57/28 dev eth1
+        - ip route add 198.51.100.0/24 via 198.51.100.49 dev eth1
     pc5:
       kind: linux
       mgmt-ipv4: 203.0.113.132
       mgmt-ipv6: 2001:db8::132
-      image: praqma/network-multitool:latest
+      image: ghcr.io/srl-labs/network-multitool
+      exec:
+        - echo "Configuring the pc5..."
+        - ip addr add 198.51.100.73/28 dev eth1
+        - ip route add 198.51.100.0/24 via 198.51.100.65 dev eth1
     pc6:
       kind: linux
       mgmt-ipv4: 203.0.113.133
       mgmt-ipv6: 2001:db8::133
-      image: praqma/network-multitool:latest
+      image: ghcr.io/srl-labs/network-multitool
+      exec:
+        - echo "Configuring the pc6..."
+        - ip addr add 198.51.100.89/28 dev eth1
+        - ip route add 198.51.100.0/24 via 198.51.100.81 dev eth1
     pc7:
       kind: linux
       mgmt-ipv4: 203.0.113.134
       mgmt-ipv6: 2001:db8::134
-      image: praqma/network-multitool:latest
+      image: ghcr.io/srl-labs/network-multitool
+      exec:
+        - echo "Configuring the pc7..."
+        - ip addr add 198.51.100.105/28 dev eth1
+        - ip route add 198.51.100.0/24 via 198.51.100.97 dev eth1
+    pc8:
+      kind: linux
+      mgmt-ipv4: 203.0.113.135
+      mgmt-ipv6: 2001:db8::135
+      image: ghcr.io/srl-labs/network-multitool
+      exec:
+        - echo "Configuring the pc8..."
+        - ip addr add 198.51.100.114/28 dev eth1
+        - ip route add 198.51.100.0/24 via 198.51.100.113 dev eth1
   links:
     - endpoints: ["router1:eth1", "router2:eth1"]
     - endpoints: ["router1:eth2", "router3:eth1"]
@@ -114,6 +173,7 @@ topology:
     - endpoints: ["router4:eth2", "router6:eth1"]
     - endpoints: ["router5:eth2", "router6:eth2"]
     - endpoints: ["router6:eth4", "router7:eth1"]
+    - endpoints: ["router7:eth3", "router8:eth1"]
     - endpoints: ["pc1:eth1", "router1:eth3"]
     - endpoints: ["pc2:eth1", "router2:eth3"]
     - endpoints: ["pc3:eth1", "router3:eth3"]
@@ -121,3 +181,4 @@ topology:
     - endpoints: ["pc5:eth1", "router5:eth3"]
     - endpoints: ["pc6:eth1", "router6:eth3"]
     - endpoints: ["pc7:eth1", "router7:eth2"]
+    - endpoints: ["pc8:eth1", "router8:eth2"]
