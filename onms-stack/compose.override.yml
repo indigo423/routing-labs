@@ -1,0 +1,37 @@
+---
+services:
+
+  mimir:
+    ports:
+      - "9090:9090/tcp"
+
+  onms-hzn-core:
+    deploy:
+      resources:
+        limits:
+          cpus: 2.0
+          memory: 8g
+    depends_on:
+      database:
+        condition: service_healthy
+      elasticsearch:
+        condition: service_healthy
+      mimir:
+        condition: service_started
+      jaeger:
+        condition: service_started
+    environment:
+      JAEGER_SERVICE_NAME: core-kafka-flows-bmp
+    volumes:
+      - ./container-fs/core-etc-overlay:/opt/opennms-etc-overlay
+      - ./container-fs/core-overlay:/opt/opennms-overlay
+    ports:
+      - "4729:4729/udp"
+      - "8101:8101/tcp"
+      - "8980:8980/tcp"
+      - "61616:61616/tcp"
+
+  grafana:
+    ports:
+      - "3000:3000/tcp"
+

@@ -6,7 +6,7 @@ Getting access to the network devices management interfaces, an OpenNMS Minion i
 
 > [!NOTE]
 > If you want to get access to the Minion you can use your existing OpenNMS Horizon/Meridian stack.
-> You need to configure gRPC as communication protocol and configure the endpoint in [org.opennms.core.ipc.grpc.client.cfg](onms-minion/etc-overlay/org.opennms.core.ipc.grpc.client.cfg) accordingly.
+> You need to configure the ONMS_CORE_HOST as ActiveMQ endpoint in [org.opennms.minion.controller.cfg](onms-minion/etc-overlay/org.opennms.minion.controller.cfg) accordingly.
 
 The environment uses the [Containerlab](https://containerlab.dev/) which allows to build and model complex routing networks using container runtimes.
 
@@ -81,3 +81,12 @@ clab graph
 clab destroy
 ```
 
+### 📈 Add inventory to OpenNMS Core
+
+> [!NOTE]
+> Adjust the host and credentials for your Core ReST endpoint in the [deploy.sh](inventory/deploy.sh) script.
+
+```
+cd inventory
+./deploy.sh
+```

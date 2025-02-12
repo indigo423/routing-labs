@@ -1,0 +1,9 @@
+---
+include:
+  - ./include/timescaledb.yml
+  - ./include/pgadmin.yml
+  - ./include/mimir.yml
+  - ./include/elasticsearch.yml
+  - ./include/onms-hzn-core.yml
+  - ./include/grafana.yml
+  - ./include/jaeger.yml
